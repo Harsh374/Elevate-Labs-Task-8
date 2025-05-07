@@ -1,0 +1,110 @@
+# K-means Clustering Interview Questions
+
+## 1. How does K-means clustering work?
+
+K-means clustering is an iterative algorithm that partitions data into K distinct clusters. The process works as follows:
+
+1. **Initialization**: Randomly select K points from the dataset as initial centroids
+2. **Assignment**: Assign each data point to the nearest centroid, forming K clusters
+3. **Update**: Recalculate the centroids as the mean of all points in each cluster
+4. **Repeat**: Iterate steps 2-3 until centroids stabilize or maximum iterations reached
+
+The algorithm aims to minimize the sum of squared distances between data points and their assigned centroids.
+
+## 2. What is the elbow method?
+
+The elbow method is a technique to determine the optimal number of clusters (K) for K-means clustering:
+
+1. Run K-means with increasing values of K (typically 1-10)
+2. For each K, calculate the Within-Cluster Sum of Squares (WCSS)
+3. Plot K against WCSS
+4. Identify the "elbow point" where the rate of decrease sharply changes
+
+This point represents where adding more clusters yields diminishing returns. The optimal K is at this "elbow" in the plot.
+
+## 3. What are the limitations of K-means?
+
+K-means has several important limitations:
+
+- **Requires pre-specified K**: Must determine the number of clusters beforehand
+- **Sensitive to initial centroids**: Different initializations can lead to different results
+- **Assumes spherical clusters**: Performs poorly with non-globular cluster shapes
+- **Sensitive to outliers**: Outliers can significantly distort centroid calculations
+- **Struggles with varying cluster sizes**: Tends to create equal-sized clusters
+- **Not suitable for categorical data**: Designed for continuous numerical features
+- **Curse of dimensionality**: Performance degrades in high-dimensional spaces
+
+## 4. How does initialization affect results?
+
+Initialization significantly impacts K-means outcomes:
+
+- **Convergence speed**: Good initialization leads to faster convergence
+- **Local optima**: K-means can get stuck in local minima based on initial centroids
+- **Cluster quality**: Final cluster assignments depend on starting points
+
+Common initialization strategies:
+1. **Random initialization**: Select K random data points (can be unstable)
+2. **K-means++**: Select initial centroids that are far apart (reduces risk of poor clustering)
+3. **Multiple runs**: Run algorithm multiple times with different initializations and select best result
+
+## 5. What is inertia in K-means?
+
+Inertia (or WCSS - Within-Cluster Sum of Squares) is the sum of squared distances between each data point and its assigned centroid:
+
+Inertia=∑i=1n​minμj​∈C​(∣∣xi​−μj​∣∣2)
+
+Where:
+- $x_i$ is a data point
+- $\mu_j$ is the centroid of cluster $j$
+- $C$ is the set of all clusters
+
+Key properties:
+- Lower inertia indicates tighter, more compact clusters
+- Always decreases as K increases (zero when K equals number of data points)
+- Used in the elbow method to find optimal K
+
+## 6. What is Silhouette Score?
+
+Silhouette Score measures how similar an object is to its own cluster compared to other clusters:
+
+s(i)= b(i)−a(i)​ / max(a(i),b(i))
+
+Where:
+- $a(i)$ is the average distance between point $i$ and all other points in its cluster
+- $b(i)$ is the average distance between point $i$ and all points in the nearest neighboring cluster
+
+The overall Silhouette Score ranges from -1 to +1:
+- +1: Well-clustered points (far from neighboring clusters)
+- 0: Points on or near decision boundary
+- -1: Points likely assigned to wrong cluster
+
+## 7. How do you choose the right number of clusters?
+
+Several methods help determine the optimal number of clusters:
+
+1. **Elbow Method**: Find where adding clusters yields diminishing returns in WCSS
+2. **Silhouette Score**: Choose K that maximizes average silhouette width
+3. **Gap Statistic**: Compare inertia with expected values under null reference distribution
+4. **Domain Knowledge**: Use business understanding to guide cluster selection
+5. **Calinski-Harabasz Index**: Ratio of between-cluster to within-cluster variance
+6. **Davies-Bouldin Index**: Measures average similarity between clusters
+
+Often, these methods are used in combination to make the final decision.
+
+## 8. What's the difference between clustering and classification?
+
+Key differences between clustering and classification:
+
+|      Aspect         |          Clustering                    |            Classification              |
+|---------------------|----------------------------------------|----------------------------------------|
+| **Learning Type**   | Unsupervised                           | Supervised                             |
+| **Training Data**   | Unlabeled                              | Labeled                                |
+| **Goal**            | Group similar data points              | Predict class labels                   |
+| **Prior Knowledge** | No predefined categories               | Known categories                       |
+| **Evaluation**      | Internal metrics (silhouette, inertia) | External metrics (accuracy, F1-score)  |
+| **Applications**    | Market segmentation, anomaly detection | Spam detection, disease diagnosis      |
+| **Algorithms**      | K-means, DBSCAN, hierarchical          | SVM, Random Forest, Neural Networks    |
+
+In clustering, we discover inherent groupings, while in classification, we learn to categorize data based on known examples.
+
+                                 *****
